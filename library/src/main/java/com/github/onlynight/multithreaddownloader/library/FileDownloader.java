@@ -3,6 +3,7 @@ package com.github.onlynight.multithreaddownloader.library;
 import android.content.Context;
 import android.util.SparseIntArray;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -81,7 +82,7 @@ public class FileDownloader {
         this.downloadProgressManager = new DownloadProgressManager(context);
     }
 
-    private void requestFileInfo(String downloadUrl) throws RuntimeException {
+    public void requestFileInfo(String downloadUrl) throws RuntimeException {
         try {
             HttpURLConnection connection = (HttpURLConnection)
                     new URL(downloadUrl).openConnection();
@@ -200,7 +201,7 @@ public class FileDownloader {
 
         if (listener != null) {
             listener.onUpdate(fileSize, fileSize, 0, 100);
-            listener.onFinish(downloadUrl, filename);
+            listener.onFinish(downloadUrl, fileSavePath + File.separator + filename);
         }
     }
 
@@ -230,10 +231,6 @@ public class FileDownloader {
     synchronized void updateProgress(int threadId, int downloaded) {
         currentDownloads.put(threadId, downloaded);
         downloadProgressManager.saveProgress(downloadUrl, currentDownloads);
-//        SparseIntArray progress = downloadProgressManager.getProgress(downloadUrl);
-//        for (int i = 0; i < progress.size(); i++) {
-//            System.out.println("prepare progress = " + progress.valueAt(progress.keyAt(i)));
-//        }
     }
 
     public boolean isStart() {

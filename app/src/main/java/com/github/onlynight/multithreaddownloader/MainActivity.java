@@ -1,10 +1,14 @@
 package com.github.onlynight.multithreaddownloader;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.SparseIntArray;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -14,6 +18,7 @@ import com.github.onlynight.multithreaddownloader.library.DownloadProgressManage
 import com.github.onlynight.multithreaddownloader.library.DownloaderDBHelper.Downloading;
 import com.github.onlynight.multithreaddownloader.library.FileDownloader;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -81,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFinish(String downloadUrl, String filepath) {
+                installApk(MainActivity.this, filepath);
             }
         });
 
@@ -160,5 +166,17 @@ public class MainActivity extends AppCompatActivity {
         manager.finishDownload(TEST_DOWNLOAD_URL);
         System.out.println("prepare progress finished = " +
                 manager.downloadFinished(TEST_DOWNLOAD_URL));
+    }
+
+    private static void installApk(Context context, String path) {
+        if (TextUtils.isEmpty(path)) {
+            return;
+        }
+
+        Uri uri = Uri.fromFile(new File(path));
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setDataAndType(uri, "application/vnd.android.package-archive");
+        context.startActivity(intent);
     }
 }
