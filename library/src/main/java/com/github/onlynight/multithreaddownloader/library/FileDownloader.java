@@ -82,7 +82,7 @@ public class FileDownloader {
         this.downloadProgressManager = new DownloadProgressManager(context);
     }
 
-    public void requestFileInfo(String downloadUrl) throws RuntimeException {
+    private void requestFileInfo(String downloadUrl) throws RuntimeException {
         try {
             HttpURLConnection connection = (HttpURLConnection)
                     new URL(downloadUrl).openConnection();
