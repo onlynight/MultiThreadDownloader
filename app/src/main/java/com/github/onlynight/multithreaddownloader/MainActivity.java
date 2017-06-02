@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private DownloadProgressManager manager;
 
     public static final String TEST_DOWNLOAD_URL = "http://www.baidu.com";
-    public static final String WECHAT_DOWNLOAD_URL = "http://dldir1.qq.com/weixin/Windows/WeChatSetup.exe";
+    public static final String WECHAT_DOWNLOAD_URL = "http://cz-static.oss-cn-hangzhou.aliyuncs.com/upload/app-huawei-release_v2.apk";
     public static final String QQ_DOWNLOAD_URL = "http://sw.bos.baidu.com/sw-search-sp/software/4b8362acdfc7e/QQ_8.9.19990.0_setup.exe";
     public static final String ADOBE_DOWNLOAD_URL = "http://sw.bos.baidu.com/sw-search-sp/software/0af215a3a8be0/flashplayer_24_ax_debug_24.0.0.194.exe";
 
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 //        }).start();
         DownloadManager instance = DownloadManager.
                 getInstance(DemoApplication.getContext());
-        instance.download("WECHAT", WECHAT_DOWNLOAD_URL, "/sdcard", 3, new FileDownloader.OnDownloadListener() {
+        instance.download("WECHAT", WECHAT_DOWNLOAD_URL, "/sdcard", 1, new FileDownloader.OnDownloadListener() {
             @Override
             public void onUpdate(int totalSize, int currentSize, int speed, int percent) {
                 System.out.println("1 percent = " + percent + "%");
@@ -84,32 +84,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        instance.download("QQ", QQ_DOWNLOAD_URL, "/sdcard", 3, new FileDownloader.OnDownloadListener() {
-            @Override
-            public void onUpdate(int totalSize, int currentSize, int speed, int percent) {
-                System.out.println("current/total=" + currentSize + "/" + totalSize);
-                System.out.println("2 percent = " + percent + "%");
-                System.out.println("2 speed = " + speed + "kb/s");
-                updateDownloadProgress(percent, 2);
-            }
-
-            @Override
-            public void onFinish(String downloadUrl, String filepath) {
-            }
-        });
-
-        instance.download("ADOBE", ADOBE_DOWNLOAD_URL, "/sdcard", 3, new FileDownloader.OnDownloadListener() {
-            @Override
-            public void onUpdate(int totalSize, int currentSize, int speed, int percent) {
-                System.out.println("3 percent = " + percent + "%");
-                System.out.println("3 speed = " + speed + "kb/s");
-                updateDownloadProgress(percent, 3);
-            }
-
-            @Override
-            public void onFinish(String downloadUrl, String filepath) {
-            }
-        });
+//        instance.download("QQ", QQ_DOWNLOAD_URL, "/sdcard", 3, new FileDownloader.OnDownloadListener() {
+//            @Override
+//            public void onUpdate(int totalSize, int currentSize, int speed, int percent) {
+//                System.out.println("current/total=" + currentSize + "/" + totalSize);
+//                System.out.println("2 percent = " + percent + "%");
+//                System.out.println("2 speed = " + speed + "kb/s");
+//                updateDownloadProgress(percent, 2);
+//            }
+//
+//            @Override
+//            public void onFinish(String downloadUrl, String filepath) {
+//            }
+//        });
+//
+//        instance.download("ADOBE", ADOBE_DOWNLOAD_URL, "/sdcard", 3, new FileDownloader.OnDownloadListener() {
+//            @Override
+//            public void onUpdate(int totalSize, int currentSize, int speed, int percent) {
+//                System.out.println("3 percent = " + percent + "%");
+//                System.out.println("3 speed = " + speed + "kb/s");
+//                updateDownloadProgress(percent, 3);
+//            }
+//
+//            @Override
+//            public void onFinish(String downloadUrl, String filepath) {
+//            }
+//        });
     }
 
     private void updateDownloadProgress(float downloadProgress, int id) {
