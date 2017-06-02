@@ -192,11 +192,7 @@ public class DownloadProgressManager {
             cursor.close();
             db.close();
 
-            if (log != null) {
-                return log.getIsFinish() == DownloadLog.DOWNLOAD_FINISH;
-            } else {
-                return false;
-            }
+            return log != null && log.getIsFinish() == DownloadLog.DOWNLOAD_FINISH;
         }
         db.close();
         return false;

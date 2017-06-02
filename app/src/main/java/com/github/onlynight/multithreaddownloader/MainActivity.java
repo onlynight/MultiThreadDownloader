@@ -78,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("1 speed = " + speed + "kb/s");
                 updateDownloadProgress(percent, 1);
             }
+
+            @Override
+            public void onFinish(String downloadUrl, String filepath) {
+            }
         });
 
         instance.download("QQ", QQ_DOWNLOAD_URL, "/sdcard", 3, new FileDownloader.OnDownloadListener() {
@@ -88,6 +92,10 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("2 speed = " + speed + "kb/s");
                 updateDownloadProgress(percent, 2);
             }
+
+            @Override
+            public void onFinish(String downloadUrl, String filepath) {
+            }
         });
 
         instance.download("ADOBE", ADOBE_DOWNLOAD_URL, "/sdcard", 3, new FileDownloader.OnDownloadListener() {
@@ -96,6 +104,10 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("3 percent = " + percent + "%");
                 System.out.println("3 speed = " + speed + "kb/s");
                 updateDownloadProgress(percent, 3);
+            }
+
+            @Override
+            public void onFinish(String downloadUrl, String filepath) {
             }
         });
     }

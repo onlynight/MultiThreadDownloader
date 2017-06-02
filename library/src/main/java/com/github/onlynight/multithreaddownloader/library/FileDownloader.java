@@ -198,9 +198,9 @@ public class FileDownloader {
             }
         }
 
-//        System.out.println(tagName + " DOWNLOAD FINISH");
         if (listener != null) {
             listener.onUpdate(fileSize, fileSize, 0, 100);
+            listener.onFinish(downloadUrl, filename);
         }
     }
 
@@ -208,14 +208,12 @@ public class FileDownloader {
         if (downloadThreads != null && downloadThreads.length > 0) {
             for (DownloadRunnable downloadThread : downloadThreads) {
                 if (!downloadThread.isFinish()) {
-                    System.out.println("checkFinish false");
                     return false;
                 }
             }
 
             return true;
         }
-        System.out.println("checkFinish true");
         return false;
     }
 
@@ -258,6 +256,8 @@ public class FileDownloader {
 
     public interface OnDownloadListener {
         void onUpdate(int totalSize, int currentSize, int speed, int percent);
+
+        void onFinish(String downloadUrl, String filepath);
     }
 
     public void setTagName(String tagName) {
