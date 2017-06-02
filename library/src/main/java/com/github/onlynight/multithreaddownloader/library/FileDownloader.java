@@ -177,6 +177,22 @@ public class FileDownloader {
         int lastDownloadSize = 0;
         int speed = 0;
         Date current = new Date();
+
+        File file = new File(getFileSavePath() + File.separator + getFilename());
+        System.out.println("local file size = " + file.length() +
+                "  downloaded size = " + getFileSize());
+        long localLength = file.length();
+        int fileSize = getFileSize();
+        if (file.length() == getFileSize()) {
+            downloadFinish(listener);
+            return;
+        }
+
+        if (localLength > fileSize) {
+            file.delete();
+            downloadProgressManager.finishDownload(downloadUrl);
+        }
+
         while (!isFinish) {
             if (listener != null) {
                 int percent = (int) (currentDownloadSize / (float) fileSize * 100);
@@ -199,6 +215,10 @@ public class FileDownloader {
             }
         }
 
+        downloadFinish(listener);
+    }
+
+    private void downloadFinish(OnDownloadListener listener) {
         if (listener != null) {
             listener.onUpdate(fileSize, fileSize, 0, 100);
             listener.onFinish(downloadUrl, fileSavePath + File.separator + filename);
